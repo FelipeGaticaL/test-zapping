@@ -172,6 +172,13 @@
                                   }).then(() => {
                                       window.location.href = '/';
                                   });
+                              } else if(!status || status != 200){
+                                Swal.fire({
+                                  title: 'Error',
+                                  text: 'Usuarion no Existe',
+                                  icon: 'error'
+                              });
+
                               }
                           } catch (error) {
                               Swal.fire({
