@@ -31,6 +31,7 @@
 - HTML code redundancy -> It would be necessary to add an express-handlebars or structure for a Layout to include all the libraries used and not to repeat code.
 - Authorization handling structures
 - HLS microservice provision
+- The order of the code in the HTML section is not the best, because something happened with my VISUAL STUDIO extension, and it stopped working. 
 
 
 ### Final consideration
