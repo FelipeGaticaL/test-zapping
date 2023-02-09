@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Video</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+      />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+      />
+
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <div class="box">
+      <div class="wave -one"></div>
+      <div class="wave -two"></div>
+      <div class="wave -three"></div>
+    </div>
+    <div class="p-2 d-flex justify-content-end">
+    <button onclick="logout()" type="button" class="btn btn-primary border-0">Cerrar sesión</button>
+  </div>
+    <div class="d-flex justify-content-center p-2">
+      <video
+        id="video"
+        class="object-fit-contain"
+        style="width: 50%"
+        controls></video>
+    </div>
+    <div class="d-flex justify-content-center p-4">
+      <table class="table table-dark table-striped" style="width: 20%">
+        <thead>
+          <tr>
+            <th scope="col">Segmentos</th>
+            <th scope="col">Valores</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Valor Inicial</th>
+            <td id="startValue"></td>
+          </tr>
+          <tr>
+            <th scope="row">Valor Final</th>
+            <td id="endValue"></td>
+          </tr>
+          <tr>
+            <th scope="row">Total Segmento</th>
+            <td id="totalValue"></td>
+          </tr>
+          <tr>
+            <th scope="row">Segmento pre visualizado</th>
+            <td id="fragBuffered"></td>
+          </tr>
+          <tr>
+            <th scope="row">Segmento visualizado</th>
+            <td id="fragProduction"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+ 
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <!-- Bootstrap CSS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+      const video = document.getElementById("video");
+      const videoSrc = "/segment.m3u8";
+
+      let config = {
+        maxBufferLength: 10,
+        backBufferLength: 0,
+        lowLatencyMode: true,
+        maxMaxBufferLength: 30,
+      };
+      if (Hls.isSupported()) {
+        const hls = new Hls(config);
+        hls.on(Hls.Events.FRAG_BUFFERED, function (event, data) {
+          let startValue = video.buffered.start(0);
+          let endValue = video.buffered.end(0);
+          let totalValue = endValue - startValue;
+          let fragBuffered = data.frag.relurl;
+          document.getElementById("startValue").innerHTML = `${Math.round(
+            startValue
+          )} Segundos`;
+          document.getElementById("endValue").innerHTML = `${Math.round(
+            endValue
+          )} Segundos`;
+          document.getElementById("totalValue").innerHTML = `${Math.round(
+            totalValue
+          )} Segundos`;
+          document.getElementById("fragBuffered").innerHTML = fragBuffered;
+        });
+        hls.on(Hls.Events.FRAG_CHANGED, function (event, data) {
+          let fragProduction = data.frag.relurl;
+          document.getElementById("fragProduction").innerHTML = fragProduction;
+        });
+
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+
+        hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
+          video.play();
+        });
+      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        video.src = videoSrc;
+        video.addEventListener("loadedmetadata", () => {
+          video.play();
+        });
+      }
+      async function verifyToken() {
+                      let token = localStorage.getItem("token")
+                      try{
+                        if (localStorage.getItem("token")) {
+                          let {data, status} = await axios.post("api/auth/verify", {"token": token});
+                          console.log(data, status )
+                          if(status != 201){
+                            location.href = "/";
+                          }
+                        } else {
+                            // si no existe el token, lo redireccionamos al login
+                            location.href = "/";
+                        }}catch(err){
+                          if(status != 201){
+                            location.href = "/";
+                          }
+                          console.log(error)
+                        }
+                    }
+    verifyToken(); 
+                        function logout() {
+                            localStorage.removeItem("token");
+                            localStorage.removeItem("user");
+                            location.replace('/');
+                        }            
+    </script>
+  </body>
+</html>
