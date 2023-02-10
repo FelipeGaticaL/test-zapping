@@ -69,4 +69,15 @@
 - 5.- Console 2: CREATE TABLE "user" (id SERIAL, name VARCHAR(100), mail VARCHAR(100), password VARCHAR(100));
 
 
+## reference images
+
+### CONSOLE 1
+![Image text](https://github.com/FelipeGaticaL/test-zapping/blob/main/readme_image/comando1.PNG)
+
+### CONSOLE 2
+![Image text](https://github.com/FelipeGaticaL/test-zapping/blob/main/readme_image/comando2.PNG)
+
+
+
 ## https://github.com/FelipeGaticaL/test-zapping
+
