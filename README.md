@@ -49,9 +49,12 @@
         - command: choco install make
 
 - Do you have the "Make" command? YES:
+    - 1) located in the project address we will write in the console: "Make network"
+        - This going to do: "docker network create -d bridge postgres-network"
     - 1) located in the project address we will write in the console: "Make run"
         - This will cause a docker image to be generated.
-    - 2) located in the project address we will write in the console: "Make enter-db"
+        - when we see that the console says "zapping_api_db | CREATE DATABASE", we can type the next step.
+    - 2) and while the above command is running, open a new console and type: "Make enter-db"
         - located in the Postgres DB, we going to write:
         - CREATE TABLE "user" (id SERIAL, name VARCHAR(100), mail VARCHAR(100), password VARCHAR(100));
 
@@ -59,10 +62,11 @@
 
 ## Total Commands:
 
-- git clone https://github.com/FelipeGaticaL/test-zapping.git
-- make run
-- make enter-db
-- CREATE TABLE "user" (id SERIAL, name VARCHAR(100), mail VARCHAR(100), password VARCHAR(100));
+- 1.- git clone https://github.com/FelipeGaticaL/test-zapping.git
+- 2- console 1: make network
+- 3.- Console 1: make run (running) -> we wait for "zapping_api_db | CREATE DATABASE" in console.
+- 4.- Console 2: make enter-db
+- 5.- Console 2: CREATE TABLE "user" (id SERIAL, name VARCHAR(100), mail VARCHAR(100), password VARCHAR(100));
 
 
 ## https://github.com/FelipeGaticaL/test-zapping
