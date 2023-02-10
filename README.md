@@ -38,20 +38,24 @@
 
 - This work has been done with priority in achieving an object in a limited time. But that does not mean that I have not tried to get all the points in the best possible way in a limited time, and take care of the details.
 
-## Configurations
+## Run Project
 
-- ENV
-SECRET_KEY=s3cretk3y
-POSTGRES_HOST=db #db -> para Docker //localhost
-POSTGRES_USER=zapping-user
-POSTGRES_PASSWORD=password
-POSTGRES_DB=zapping-db
-APP_CONTAINER_NAME=zapping_api_app
-DB_CONTAINER_NAME=zapping_api_db
-NODE_ENV=development
-SECRET=SECRET
-PORT=3000
+- .env was left for testing purposes
 
-- TABLE -> CREATE TABLE "user" (id SERIAL, name VARCHAR(100), mail VARCHAR(100), password VARCHAR(100));
+- Do you have the "Make" command? NOT: 
+    - 1) Install https://chocolatey.org/install through the console 
+        - command: Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+    - 2) https://community.chocolatey.org/packages/make#individual
+        - command: choco install make
+
+- Do you have the "Make" command? YES:
+    - 1) located in the project address we will write in the console: "Make run"
+        - This will cause a docker image to be generated.
+    - 2) located in the project address we will write in the console: "Make enter-db"
+        - located in the Postgres DB, we going to write:
+        - CREATE TABLE "user" (id SERIAL, name VARCHAR(100), mail VARCHAR(100), password VARCHAR(100));
+
+- We update the page where the project is being uploaded, the APP is now ready 
+
 
 ## https://github.com/FelipeGaticaL/test-zapping
