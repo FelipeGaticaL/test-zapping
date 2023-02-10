@@ -38,7 +38,7 @@
 
 - This work has been done with priority in achieving an object in a limited time. But that does not mean that I have not tried to get all the points in the best possible way in a limited time, and take care of the details.
 
-## Run Project
+### Run Project
 
 - .env was left for testing purposes
 
@@ -56,6 +56,13 @@
         - CREATE TABLE "user" (id SERIAL, name VARCHAR(100), mail VARCHAR(100), password VARCHAR(100));
 
 - We update the page where the project is being uploaded, the APP is now ready 
+
+## Total Commands:
+
+- git clone https://github.com/FelipeGaticaL/test-zapping.git
+- make run
+- make enter-db
+- CREATE TABLE "user" (id SERIAL, name VARCHAR(100), mail VARCHAR(100), password VARCHAR(100));
 
 
 ## https://github.com/FelipeGaticaL/test-zapping
